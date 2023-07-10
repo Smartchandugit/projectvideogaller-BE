@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Video Gallery</title>
+</head>
+<body>
+  <h1>Video Gallery</h1>
+  <div id="video-container"></div>
+
+  <script>
+    fetch('http://localhost:8000/api/videos/')
+      .then(response => response.json())
+      .then(videos => {
+        const videoContainer = document.getElementById('video-container');
+        videos.forEach(video => {
+          const videoElement = document.createElement('iframe');
+          videoElement.src = video.url;
+          videoElement.title = video.title;
+          videoElement.frameBorder = '0';
+          videoElement.allowFullscreen = true;
+          videoContainer.appendChild(videoElement);
+        });
+      })
+      .catch(error => console.error(error));
+  </script>
+</body>
+</html>
